@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarush Magic Morse Code Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(30,30,30);
+        }
+
+        header {
+            background-color: black;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+        }
+
+        .converter {
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            margin-bottom: 20px;
+            justify-content: center;
+            text-align:center;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        #output {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Morse Code Converter</h1>
+    </header>
+    <div class="container">
+        <div class="converter">
+            <label for="inputText">Enter Text:</label>
+            <textarea id="inputText" placeholder="Type text to convert..."></textarea>
+            <button onclick="convertToMorse()">Text to Morse</button>
+            <button onclick="convertToText()">Morse to Text</button>
+            <div id="output"></div> 
+            <p>The duration of the dash is 3 times that of a dot. Each dot or dash is followed by the blank period which equals to the dot duration. Space between letters is 3 dots duration. Space between words is 7 dots duration.</p>
+        </div>
+    </div>
+
+    <script>
+        // Morse code dictionary
+        const morseCodeMap = {
+            'A': '.-',
+            'B': '-...',
+            'C': '-.-.',
+            'D': '-..',
+            'E': '.',
+            'F': '..-.',
+            'G': '--.',
+            'H': '....',
+            'I': '..',
+            'J': '.---',
+            'K': '-.-',
+            'L': '.-..',
+            'M': '--',
+            'N': '-.',
+            'O': '---',
+            'P': '.--.',
+            'Q': '--.-',
+            'R': '.-.',
+            'S': '...',
+            'T': '-',
+            'U': '..-',
+            'V': '...-',
+            'W': '.--',
+            'X': '-..-',
+            'Y': '-.--',
+            'Z': '--..',
+            '0': '-----',
+            '1': '.----',
+            '2': '..---',
+            '3': '...--',
+            '4': '....-',
+            '5': '.....',
+            '6': '-....',
+            '7': '--...',
+            '8': '---..',
+            '9': '----.',
+            ' ': '/',
+            '.': '.-.-.-',
+            ',': '--..--',
+            '?': '..--..',
+            '!': '-.-.--',
+            "'": '.----.'
+        };
+
+        // Function to convert text to Morse code
+        function convertToMorse() {
+            const inputText = document.getElementById('inputText').value.toUpperCase();
+            let output = '';
+            for (let i = 0; i < inputText.length; i++) {
+                const char = inputText[i];
+                if (char in morseCodeMap) {
+                    output += morseCodeMap[char] + ' ';
+                }
+            }
+            document.getElementById('output').innerText = output.trim();
+        }
+
+        // Function to convert Morse code to text
+        function convertToText() {
+            const inputMorse = document.getElementById('inputText').value.trim().split(' ');
+            let output = '';
+            for (let i = 0; i < inputMorse.length; i++) {
+                for (const key in morseCodeMap) {
+                    if (morseCodeMap.hasOwnProperty(key) && morseCodeMap[key] === inputMorse[i]) {
+                        output += key;
+                        break;
+                    }
+                }
+            }
+            document.getElementById('output').innerText = output;
+        }
+    </script>
+</body>
+</html>
